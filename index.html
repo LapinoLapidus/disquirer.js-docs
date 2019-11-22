@@ -71,32 +71,65 @@
 					<h3>Purpose</h3>
 				</a>
 				<p>This library creates an interactive experience between a user and a Discord bot.
-				You could compare the front-end of it to something like <a href="https://github.com/SBoudrias/Inquirer.js/">Inquirer.js</a></p>
+					You could compare the front-end of it to something like <a href="https://github.com/SBoudrias/Inquirer.js/">Inquirer.js</a>
+				<img src="https://i.imgur.com/cKdPh9Q.gif" alt="disquirer.js"></p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h3>Installation</h3>
 				</a>
-				<p>NPM: <code>npm install LapinoLapidus/disquirer.js</code>.</p>
+				<p>NPM: <code>npm install disquirer.js</code>.<br />
+				Yarn: <code>yarn add disquirer.js</code>.</p>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h3>Usage</h3>
 				</a>
-				<p>Create a new Disquirer object.</p>
+				<p>Disquirer is written in TypeScript so enjoy the typings.</p>
+				<p>Create a new Disquirer object and return answers:</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { Disquirer } <span class="hljs-keyword">from</span> <span class="hljs-string">"disquirer.js"</span>;
 <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">"disquirer.js"</span>;
+<span class="hljs-keyword">import</span> { Settings } <span class="hljs-keyword">from</span> <span class="hljs-string">"disquirer.js"</span>;
 
-<span class="hljs-comment">// Pass an array of questions as argument</span>
-<span class="hljs-keyword">const</span> disquirer = <span class="hljs-keyword">new</span> Disquirer([{}] <span class="hljs-keyword">as</span> Question[])
+<span class="hljs-comment">// Pass an array of questions as argument, and optionally a Settings object.</span>
+<span class="hljs-comment">// These are the default settings if you don't set a Settings object.</span>
+<span class="hljs-keyword">const</span> settings = {
+  invalidAnswerMessage: <span class="hljs-string">"Not a valid answer."</span>,
+  invalidAnswerDeletionTime: <span class="hljs-number">5000</span>,
+  invalidReactionMessage: <span class="hljs-string">"You didn't add a valid reaction."</span>,
+  invalidReactionDeletionTime: <span class="hljs-number">5000</span>
+} <span class="hljs-keyword">as</span> Settings;
+<span class="hljs-keyword">const</span> disquirer = <span class="hljs-keyword">new</span> Disquirer([{}] <span class="hljs-keyword">as</span> Question[], settings);
 
-<span class="hljs-comment">// TEXT_CHANNEL is an object of type TextChannel, USER is an object of type User from discord.js. </span>
-disquirer.createPrompt(TEXT_CHANNEL, USER)</code></pre>
+<span class="hljs-comment">// TEXT_CHANNEL is an object of type TextChannel, USER is an object of type User from discord.js.</span>
+<span class="hljs-keyword">const</span> answers = <span class="hljs-keyword">await</span> disquirer.createPrompt(TEXT_CHANNEL, USER);</code></pre>
+				<p>Disquirer#createPrompt returns a Promise containing an array of <a href="https://lapinolapidus.github.io/disquirer.js-docs/interfaces/_interfaces_answer_.answer.html">Answer</a>s.
+					Documentation for the Question and Answer interfaces can be found <a href="https://lapinolapidus.github.io/disquirer.js-docs/interfaces/_interfaces_answer_.answer.html">here for Answer</a> and <a href="https://lapinolapidus.github.io/disquirer.js-docs/interfaces/_interfaces_question_.question.html">here for question</a>
+				For more examples, please refer to the <a href="test/test.ts">test file</a>,</p>
+				<a href="#todo" id="todo" style="color: inherit; text-decoration: none;">
+					<h3>TODO:</h3>
+				</a>
+				<ul>
+					<li>Input validation: (length, type, ..).</li>
+				</ul>
 				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
 					<h3>Tests</h3>
 				</a>
 				<p>To run tests, fill in the required values in <code>.env</code>. To get this file, simply move <code>.env.example</code> to <code>.env</code>. Tests run in Discord and thus require user interaction there.</p>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h3>Documentation</h3>
+				</a>
+				<p>Documentation can be found <a href="https://lapinolapidus.github.io/disquirer.js-docs/index.html">here</a>.</p>
 				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
 					<h3>Contributing</h3>
 				</a>
-				<p>Feel free to contribute to the project. To start, fork this, make your changes, and make a pull request.
-				Please use prettier to format your code (should be automatically run on commit.)</p>
+				<p>Feel free to contribute to the project, the code&#39;s a bit messy though but you can change that. To start, fork this, make your changes, and make a pull request.
+					Please use prettier to format your code (should be automatically run on commit.)
+				Found a bug? Report it as an issue.</p>
+				<a href="#credits" id="credits" style="color: inherit; text-decoration: none;">
+					<h3>Credits</h3>
+				</a>
+				<p>The <a href="https://github.com/SBoudrias/Inquirer.js/">Inquirer.js</a> project for the original idea.</p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h3>License</h3>
+				</a>
+				<p>MIT License</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -113,6 +146,9 @@ disquirer.createPrompt(TEXT_CHANNEL, USER)</code></pre>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_interfaces_question_.html">&quot;interfaces/<wbr>Question&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_settings_.html">&quot;interfaces/<wbr>Settings&quot;</a>
 					</li>
 				</ul>
 			</nav>
